@@ -6,8 +6,8 @@ import { Output } from "./output.ts";
 import lang_cpp from "./syntax/lang_cpp.ts";
 import lang_html_css from "./syntax/lang_html_css.ts";
 import lang_javascript from "./syntax/lang_javascript.ts";
-import lang_php from "./syntax/lang_php.ts";
 import lang_rust from "./syntax/lang_rust.ts";
+import lang_shell from "./syntax/lang_shell.ts";
 
 export class Syntax implements EnumItem {
   static readonly CPP = new Syntax(
@@ -44,15 +44,15 @@ export class Syntax implements EnumItem {
     "Java Script",
     lang_javascript,
   );
-  static readonly PHP = new Syntax(
-    "php", //
-    "PHP",
-    lang_php,
-  );
   static readonly RUST = new Syntax(
     "rust", //
     "Rust",
     lang_rust,
+  );
+  static readonly SHELL = new Syntax(
+    "shell", //
+    "Shell",
+    lang_shell,
   );
   static readonly ALL = new Enum<Syntax>(
     Syntax.HTML,
@@ -60,6 +60,7 @@ export class Syntax implements EnumItem {
     Syntax.CPP,
     Syntax.CPP_FPROTO,
     Syntax.CPP_STMT,
+    Syntax.SHELL,
   );
 
   private constructor(
@@ -73,11 +74,18 @@ export class Syntax implements EnumItem {
 
   generate(rng?: RNG): string {
     const output = new Output(200);
-    try {
-      generate(this.rules, this.start, { output, rng });
-    } catch (err) {
-      if (err !== Output.Stop) {
-        throw err;
+    while (true) {
+      try {
+        if (output.length > 0) {
+          output.separate(" ");
+        }
+        generate(this.rules, this.start, { output, rng });
+      } catch (err) {
+        if (err === Output.Stop) {
+          break;
+        } else {
+          throw err;
+        }
       }
     }
     return String(output).trim();

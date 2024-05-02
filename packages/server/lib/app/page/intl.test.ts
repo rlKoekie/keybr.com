@@ -33,11 +33,11 @@ test("negotiate the preferred language", async (t) => {
 
   t.is(await call(new AcceptLanguage("pt")), "pt-br");
   t.is(await call(new AcceptLanguage("pt-BR")), "pt-br");
-  t.is(await call(new AcceptLanguage("pt-PT")), "en");
+  t.is(await call(new AcceptLanguage("pt-PT")), "pt-pt");
 
   t.is(await call(new AcceptLanguage("zh")), "zh-hans");
   t.is(await call(new AcceptLanguage("zh-CN")), "zh-hans");
-  t.is(await call(new AcceptLanguage("zh-TW")), "en");
+  t.is(await call(new AcceptLanguage("zh-TW")), "zh-hant");
 
   t.is(await call(new AcceptLanguage().add("en", 0.8).add("pl", 0.9)), "pl");
 });

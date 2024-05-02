@@ -13,8 +13,8 @@ test("select locale", (t) => {
   t.is(selectLocale(filter("en-CA")), "en");
   t.is(selectLocale(filter("pt")), "pt-br");
   t.is(selectLocale(filter("pt-BR")), "pt-br");
-  t.is(selectLocale(filter("pt-PT")), "en");
+  t.is(selectLocale(filter("pt-PT")), "pt-pt");
   t.is(selectLocale(filter("zh")), "zh-hans");
   t.is(selectLocale(filter("zh-CN")), "zh-hans");
-  t.is(selectLocale(filter("zh-TW")), "en");
+  t.is(selectLocale(filter("zh-TW")), "zh-hant");
 });

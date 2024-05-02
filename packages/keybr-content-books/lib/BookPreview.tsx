@@ -1,5 +1,5 @@
 import { useIntlNumbers } from "@keybr/intl";
-import { textStatsOf } from "@keybr/plaintext";
+import { textStatsOf } from "@keybr/unicode";
 import { NameValue } from "@keybr/widget";
 import { memo, type ReactNode, useMemo } from "react";
 import { useIntl } from "react-intl";
@@ -24,13 +24,13 @@ export const BookPreview = memo(function BookPreview({
     const paragraphs = flattenContent(content);
     const numChapters = content.length;
     const numParagraphs = paragraphs.length;
-    const textStats = textStatsOf(paragraphs);
+    const textStats = textStatsOf(book.language.locale, paragraphs);
     return {
       numChapters,
       numParagraphs,
       ...textStats,
     };
-  }, [content]);
+  }, [book, content]);
   return (
     <div className={styles.bookPreview}>
       <img

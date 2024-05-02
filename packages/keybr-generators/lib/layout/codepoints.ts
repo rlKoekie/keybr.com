@@ -1,5 +1,5 @@
 import { getDiacritic } from "@keybr/keyboard";
-import type { CodePoint } from "@keybr/unicode";
+import { type CodePoint } from "@keybr/unicode";
 
 export function formatCodePointName(codePoint: CodePoint): string {
   const diacritic = getDiacritic(codePoint);
@@ -15,8 +15,14 @@ export function formatCodePointName(codePoint: CodePoint): string {
         return "ZERO WIDTH NON-JOINER";
       case 0x200d:
         return "ZERO WIDTH JOINER";
+      case 0x200e:
+        return "LEFT-TO-RIGHT MARK";
+      case 0x200f:
+        return "RIGHT-TO-LEFT MARK";
       case 0x202f:
         return "NARROW NO-BREAK SPACE";
+      case 0x034f:
+        return "COMBINING GRAPHEME JOINER";
       default:
         return String.fromCodePoint(codePoint);
     }

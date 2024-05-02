@@ -5,7 +5,7 @@
   "main": "lib/index.ts",
   "types": ".types/index.d.ts",
   "dependencies": {
-    "@unicode/unicode-14.0.0": "^1.5.2"
+    "@formatjs/intl-segmenter": "^11.5.5"
   },
   "devDependencies": {},
   "scripts": {

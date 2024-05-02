@@ -551,7 +551,7 @@ export class Layout implements XEnumItem {
   static readonly HE_IL = new Layout(
     /* id= */ "he-il",
     /* xid= */ 0x84,
-    /* name= */ "{IL}",
+    /* name= */ "{IL} (מסורתי)",
     /* family= */ "hebrew",
     /* language= */ Language.HE,
     /* emulate= */ true,
@@ -700,10 +700,10 @@ export class Layout implements XEnumItem {
     /* language= */ Language.AR,
     /* emulate= */ true,
     /* geometries= */ new Enum(
-      Geometry.ISO_102,
-      Geometry.ISO_102_FULL,
       Geometry.ANSI_101,
       Geometry.ANSI_101_FULL,
+      Geometry.ISO_102,
+      Geometry.ISO_102_FULL,
       Geometry.MATRIX,
     ),
   );
@@ -715,6 +715,36 @@ export class Layout implements XEnumItem {
     /* language= */ Language.AR,
     /* emulate= */ true,
     /* geometries= */ new Enum(
+      Geometry.ANSI_101,
+      Geometry.ANSI_101_FULL,
+      Geometry.ISO_102,
+      Geometry.ISO_102_FULL,
+      Geometry.MATRIX,
+    ),
+  );
+  static readonly FA_IR_LEGACY = new Layout(
+    /* id= */ "fa-ir-legacy",
+    /* xid= */ 0x8f,
+    /* name= */ "Persian Legacy «پیش فرض فارسی»",
+    /* family= */ "persian",
+    /* language= */ Language.FA,
+    /* emulate= */ true,
+    /* geometries= */ new Enum(
+      Geometry.ANSI_101,
+      Geometry.ANSI_101_FULL,
+      Geometry.ISO_102,
+      Geometry.ISO_102_FULL,
+      Geometry.MATRIX,
+    ),
+  );
+  static readonly HE_IL_ARKN = new Layout(
+    /* id= */ "he-il-arkn",
+    /* xid= */ 0x90,
+    /* name= */ "{IL} (ארקן)",
+    /* family= */ "hebrew-arkn",
+    /* language= */ Language.HE,
+    /* emulate= */ true,
+    /* geometries= */ new Enum(
       Geometry.ISO_102,
       Geometry.ISO_102_FULL,
       Geometry.ANSI_101,
@@ -723,17 +753,17 @@ export class Layout implements XEnumItem {
     ),
   );
   static readonly FA_IR = new Layout(
-    /* id= */ "fa",
-    /* xid= */ 0x8f,
-    /* name= */ "Persian",
+    /* id= */ "fa-ir",
+    /* xid= */ 0x91,
+    /* name= */ "Persian Standard «استاندارد فارسی»",
     /* family= */ "persian",
     /* language= */ Language.FA,
     /* emulate= */ true,
     /* geometries= */ new Enum(
-      Geometry.ISO_102,
-      Geometry.ISO_102_FULL,
       Geometry.ANSI_101,
       Geometry.ANSI_101_FULL,
+      Geometry.ISO_102,
+      Geometry.ISO_102_FULL,
       Geometry.MATRIX,
     ),
   );
@@ -785,6 +815,7 @@ export class Layout implements XEnumItem {
     Layout.FR_ERGLACE,
     Layout.FR_OPTIMOT_ERGO,
     Layout.HE_IL,
+    Layout.HE_IL_ARKN,
     Layout.HU_HU,
     Layout.IT_IT,
     Layout.NB_NO,
@@ -805,6 +836,7 @@ export class Layout implements XEnumItem {
     Layout.AR_SA,
     Layout.AR_SA_102,
     Layout.FA_IR,
+    Layout.FA_IR_LEGACY,
   );
 
   static findLayout(localeId: string): Layout | null {
@@ -835,14 +867,14 @@ export class Layout implements XEnumItem {
   }
 
   private constructor(
-    public readonly id: string,
-    public readonly xid: number,
-    public readonly name: string,
-    public readonly family: string,
-    public readonly language: Language,
-    public readonly emulate: boolean,
-    public readonly geometries: Enum<Geometry>,
-    public readonly mod: Mod = (geometry, dict) => dict,
+    readonly id: string,
+    readonly xid: number,
+    readonly name: string,
+    readonly family: string,
+    readonly language: Language,
+    readonly emulate: boolean,
+    readonly geometries: Enum<Geometry>,
+    readonly mod: Mod = (geometry, dict) => dict,
   ) {
     Object.freeze(this);
   }

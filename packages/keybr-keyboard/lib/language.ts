@@ -43,7 +43,7 @@ export class Language implements EnumItem {
     /* id= */ "es",
     /* script= */ "latin",
     /* direction= */ "ltr",
-    /* alphabet= */ "aábcdeéfghiíjlmnñoópqrstuúüvxyz",
+    /* alphabet= */ "aábcdeéfghiíjlmnñoópqrstuúvxyz",
   );
   static readonly FA = new Language(
     /* id= */ "fa",
@@ -97,7 +97,7 @@ export class Language implements EnumItem {
     /* id= */ "pt",
     /* script= */ "latin",
     /* direction= */ "ltr",
-    /* alphabet= */ "aáâãàbcçdeéêfghiíjklmnoóôõpqrstuúvwxz",
+    /* alphabet= */ "aáâãàbcçdeéêfghiíjlmnoóôõpqrstuúvxz",
   );
   static readonly RU = new Language(
     /* id= */ "ru",
@@ -127,7 +127,7 @@ export class Language implements EnumItem {
     /* id= */ "uk",
     /* script= */ "cyrillic",
     /* direction= */ "ltr",
-    /* alphabet= */ "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя",
+    /* alphabet= */ "абвгдеєжзиіїйклмнопрстуфхцчшщьюя",
   );
 
   static readonly ALL = new Enum<Language>(
@@ -256,13 +256,13 @@ export class Language implements EnumItem {
 export function getExampleText({ script }: Language): string {
   switch (script) {
     case "arabic":
-      return "سیب و پرتقال بیشتری بخورید";
+      return "تناول المزيد من التفاح والبرتقال.";
     case "cyrillic":
       return "Яжте повече ябълки и портокали.";
     case "greek":
       return "Τρώτε περισσότερα μήλα και πορτοκάλια.";
     case "hebrew":
-      return "לאכול יותר תפוחים ותפוזים";
+      return "תאכל יותר תפוחים ותפוזים.";
     default:
       return "Eat more apples and oranges.";
   }

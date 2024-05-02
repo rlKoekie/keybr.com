@@ -1,6 +1,4 @@
-import isNumber from "lodash/isNumber";
-import isObject from "lodash/isObject";
-import isObjectLike from "lodash/isObjectLike";
+import { isNumber, isObject, isObjectLike } from "@keybr/lang";
 
 export type TSize = {
   width: number;
@@ -8,8 +6,8 @@ export type TSize = {
 };
 
 export class Size implements Readonly<TSize> {
-  public readonly width: number;
-  public readonly height: number;
+  readonly width: number;
+  readonly height: number;
 
   constructor(width: number, height: number);
   constructor(size: Readonly<TSize>);

@@ -1,6 +1,4 @@
-import isNumber from "lodash/isNumber";
-import isObject from "lodash/isObject";
-import isObjectLike from "lodash/isObjectLike";
+import { isNumber, isObject, isObjectLike } from "@keybr/lang";
 
 export type TPoint = {
   x: number;
@@ -8,8 +6,8 @@ export type TPoint = {
 };
 
 export class Point implements Readonly<TPoint> {
-  public readonly x: number;
-  public readonly y: number;
+  readonly x: number;
+  readonly y: number;
 
   constructor(x: number, y: number);
   constructor(point: Readonly<TPoint>);

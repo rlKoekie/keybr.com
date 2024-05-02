@@ -1,4 +1,4 @@
-import { type HasCodePoint, keyboardProps, type KeyId } from "@keybr/keyboard";
+import { keyboardProps, type KeyId, Ngram2 } from "@keybr/keyboard";
 import { type Lesson, type LessonKeys, lessonProps } from "@keybr/lesson";
 import { Histogram, KeySet } from "@keybr/math";
 import { type KeyStatsMap, Result } from "@keybr/result";
@@ -7,6 +7,7 @@ import {
   type Feedback,
   type LineList,
   newStats,
+  type Step,
   type TextDisplaySettings,
   TextInput,
   type TextInputSettings,
@@ -14,13 +15,15 @@ import {
   toTextInputSettings,
 } from "@keybr/textinput";
 import { type TextInputEvent } from "@keybr/textinput-events";
-import { type CodePoint } from "@keybr/unicode";
+import { type CodePoint, type HasCodePoint } from "@keybr/unicode";
 import { type Announcement } from "./Announcer.tsx";
 
 export type LastLesson = {
   readonly result: Result;
   readonly hits: Histogram<HasCodePoint>;
   readonly misses: Histogram<HasCodePoint>;
+  readonly hits2: Ngram2;
+  readonly misses2: Ngram2;
 };
 
 export class PracticeState {
@@ -49,16 +52,16 @@ export class PracticeState {
     this.textDisplaySettings = toTextDisplaySettings(settings);
     this.keyStatsMap = this.lesson.analyze(this.results);
     this.lessonKeys = this.lesson.update(this.keyStatsMap);
-    this._reset(this.lesson.generate(this.lessonKeys));
-    this._computeAnnouncements();
+    this.#reset(this.lesson.generate(this.lessonKeys));
+    this.#computeAnnouncements();
   }
 
   resetLesson(): void {
-    this._reset(this.textInput.text);
+    this.#reset(this.textInput.text);
   }
 
   skipLesson(): void {
-    this._reset(this.lesson.generate(this.lessonKeys));
+    this.#reset(this.lesson.generate(this.lessonKeys));
   }
 
   onTextInput(event: TextInputEvent): Feedback {
@@ -78,13 +81,13 @@ export class PracticeState {
     return feedback;
   }
 
-  private _reset(fragment: string): void {
+  #reset(fragment: string): void {
     this.textInput = new TextInput(fragment, this.textInputSettings);
     this.lines = this.textInput.getLines();
     this.suffix = this.textInput.getSuffix();
   }
 
-  private _computeAnnouncements(): void {
+  #computeAnnouncements(): void {
     const { results, keyStatsMap, lessonKeys } = this;
     if (results.length > 0) {
       const focusedKey = lessonKeys.findFocusedKey();
@@ -98,7 +101,10 @@ export class PracticeState {
   }
 }
 
-export function makeLastLesson(result: Result): LastLesson {
+export function makeLastLesson(
+  result: Result,
+  steps: readonly Step[],
+): LastLesson {
   const keySet = new KeySet<HasCodePoint>([]);
   const hits = new Histogram(keySet);
   const misses = new Histogram(keySet);
@@ -106,5 +112,13 @@ export function makeLastLesson(result: Result): LastLesson {
     hits.set({ codePoint }, hitCount);
     misses.set({ codePoint }, missCount);
   }
-  return { result, hits, misses };
+  const alphabet = [...new Set(steps.map(({ codePoint }) => codePoint))].sort(
+    (a, b) => a - b,
+  );
+  const hits2 = new Ngram2(alphabet);
+  const misses2 = new Ngram2(alphabet);
+  for (let i = 0; i < steps.length - 1; i++) {
+    hits2.add(steps[i].codePoint, steps[i + 1].codePoint, 1);
+  }
+  return { result, hits, misses, hits2, misses2 };
 }

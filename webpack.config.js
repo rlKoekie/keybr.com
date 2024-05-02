@@ -51,8 +51,8 @@ const rule_ts = () => ({
       options: {
         transpileOnly: true,
         compilerOptions: {
-          target: "es2020",
-          module: "es2020",
+          target: "es2022",
+          module: "es2022",
           jsx: mode === "development" ? "react-jsxdev" : "react-jsx",
         },
         getCustomTransformers: () => ({
@@ -198,23 +198,17 @@ module.exports = [
         },
       ],
     },
-    resolve: {
-      alias: {
-        lodash: "lodash-es",
-      },
-    },
     optimization: {
       minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
       splitChunks: {
         cacheGroups: {
+          polyfills: {
+            test: /\/@formatjs\/intl-segmenter\//,
+            chunks: "all",
+            name: "polyfills",
+          },
           vendor: {
-            test: isVendor([
-              "tslib",
-              "lodash",
-              "lodash-es",
-              "@mdi",
-              "@unicode",
-            ]),
+            test: isVendor(["tslib", "@mdi", "@formatjs/intl-segmenter"]),
             chunks: "all",
             name: "shared-vendor",
           },
@@ -223,15 +217,10 @@ module.exports = [
             chunks: "all",
             name: "shared-widget",
           },
-          layoutsData: {
-            test: /\/keybr-data-layouts\//,
+          keyboard: {
+            test: /\/keybr-keyboard\//,
             chunks: "all",
-            name: "shared-data-layouts",
-          },
-          statsData: {
-            test: /\/keybr-data-stats\//,
-            chunks: "all",
-            name: "shared-data-stats",
+            name: "shared-keyboard",
           },
           styles: {
             type: "css/mini-extract",

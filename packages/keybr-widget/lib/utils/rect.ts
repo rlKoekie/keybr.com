@@ -1,15 +1,14 @@
-import isNumber from "lodash/isNumber";
-import isObjectLike from "lodash/isObjectLike";
+import { isNumber, isObjectLike } from "@keybr/lang";
 import { Point, type TPoint } from "./point.ts";
 import { Size, type TSize } from "./size.ts";
 
 export type TRect = TPoint & TSize;
 
 export class Rect implements Readonly<TRect> {
-  public readonly x: number;
-  public readonly y: number;
-  public readonly width: number;
-  public readonly height: number;
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
 
   constructor(x: number, y: number, width: number, height: number);
   constructor(point: Readonly<TPoint>, size: Readonly<TSize>);

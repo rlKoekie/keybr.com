@@ -38,7 +38,8 @@ import { LAYOUT_EN_UK } from "./layout/en_uk.ts";
 import { LAYOUT_EN_US } from "./layout/en_us.ts";
 import { LAYOUT_EN_WORKMAN } from "./layout/en_workman.ts";
 import { LAYOUT_ES_ES } from "./layout/es_es.ts";
-import { LAYOUT_FA_IR } from "./layout/fa-ir.ts";
+import { LAYOUT_FA_IR } from "./layout/fa_ir.ts";
+import { LAYOUT_FA_IR_LEGACY } from "./layout/fa_ir_legacy.ts";
 import { LAYOUT_FR_BEPO } from "./layout/fr_bepo.ts";
 import { LAYOUT_FR_CA } from "./layout/fr_ca.ts";
 import { LAYOUT_FR_CH } from "./layout/fr_ch.ts";
@@ -47,6 +48,7 @@ import { LAYOUT_FR_ERGO_L } from "./layout/fr_ergo_l.ts";
 import { LAYOUT_FR_FR } from "./layout/fr_fr.ts";
 import { LAYOUT_FR_OPTIMOT_ERGO } from "./layout/fr_optimot_ergo.ts";
 import { LAYOUT_HE_IL } from "./layout/he_il.ts";
+import { LAYOUT_HE_IL_ARKN } from "./layout/he_il_arkn.ts";
 import { LAYOUT_HU_HU } from "./layout/hu_hu.ts";
 import { LAYOUT_IT_IT } from "./layout/it_it.ts";
 import { LAYOUT_JA_JP_JIS } from "./layout/ja_jp_jis.ts";
@@ -95,6 +97,7 @@ const layoutDict = new Map<Layout, CodePointDict>([
   [Layout.EN_WORKMAN, LAYOUT_EN_WORKMAN],
   [Layout.ES_ES, LAYOUT_ES_ES],
   [Layout.FA_IR, LAYOUT_FA_IR],
+  [Layout.FA_IR_LEGACY, LAYOUT_FA_IR_LEGACY],
   [Layout.FR_BEPO, LAYOUT_FR_BEPO],
   [Layout.FR_CA, LAYOUT_FR_CA],
   [Layout.FR_CH, LAYOUT_FR_CH],
@@ -103,6 +106,7 @@ const layoutDict = new Map<Layout, CodePointDict>([
   [Layout.FR_FR, LAYOUT_FR_FR],
   [Layout.FR_OPTIMOT_ERGO, LAYOUT_FR_OPTIMOT_ERGO],
   [Layout.HE_IL, LAYOUT_HE_IL],
+  [Layout.HE_IL_ARKN, LAYOUT_HE_IL_ARKN],
   [Layout.HU_HU, LAYOUT_HU_HU],
   [Layout.IT_IT, LAYOUT_IT_IT],
   [Layout.NB_NO, LAYOUT_NB_NO],

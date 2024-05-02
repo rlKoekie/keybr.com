@@ -23,17 +23,21 @@ const allLocales = [
   "fr",
   "he",
   "hu",
+  "id",
   "it",
   "ja",
   "ne",
   "nl",
   "pl",
   "pt-br",
+  "pt-pt",
   "ru",
   "sv",
   "tr",
   "uk",
+  "vi",
   "zh-hans",
+  "zh-hant",
 ];
 
 const defaultLocale = "en";

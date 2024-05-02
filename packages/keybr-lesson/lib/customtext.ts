@@ -1,5 +1,5 @@
 import { type Language, type WeightedCodePointSet } from "@keybr/keyboard";
-import { Letter, type PhoneticModel } from "@keybr/phonetic-model";
+import { type Letter, type PhoneticModel } from "@keybr/phonetic-model";
 import { type KeyStatsMap, newKeyStatsMap, type Result } from "@keybr/result";
 import { type Settings } from "@keybr/settings";
 import { type CodePointSet, toCodePoints } from "@keybr/unicode";
@@ -9,7 +9,6 @@ import { lessonProps } from "./settings.ts";
 import { Target } from "./target.ts";
 import { generateFragment } from "./text/fragment.ts";
 import { sanitizeText } from "./text/sanitizetext.ts";
-import { splitText } from "./text/splittext.ts";
 import {
   randomWords,
   uniqueWords,
@@ -44,12 +43,12 @@ export class CustomTextLesson extends Lesson {
   }
 
   override generate(): string {
-    return generateFragment(this.settings, this.makeWordGenerator(), {
+    return generateFragment(this.settings, this.#makeWordGenerator(), {
       doubleWords: false,
     });
   }
 
-  private makeWordGenerator(): WordGenerator {
+  #makeWordGenerator(): WordGenerator {
     const randomize = this.settings.get(lessonProps.customText.randomize);
     if (randomize && this.wordList.length > 0) {
       return uniqueWords(randomWords(this.wordList, this.rng));
@@ -69,7 +68,9 @@ function getWordList(
   const lettersOnly = settings.get(lessonProps.customText.lettersOnly);
   const lowercase = settings.get(lessonProps.customText.lowercase);
   if (lettersOnly) {
-    const s = String.fromCodePoint(...letters.map(Letter.codePointOf));
+    const s = String.fromCodePoint(
+      ...letters.map(({ codePoint }) => codePoint),
+    );
     codePoints = new Set(
       toCodePoints(language.lowerCase(s) + language.upperCase(s)),
     );
@@ -78,5 +79,5 @@ function getWordList(
   if (lowercase) {
     text = language.lowerCase(text);
   }
-  return splitText(text);
+  return text.trim().split(/[\s\n]+/);
 }

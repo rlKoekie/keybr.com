@@ -32,17 +32,21 @@ export type LocaleId =
   | "fr"
   | "he"
   | "hu"
+  | "id"
   | "it"
   | "ja"
   | "ne"
   | "nl"
   | "pl"
   | "pt-br"
+  | "pt-pt"
   | "ru"
   | "sv"
   | "tr"
   | "uk"
-  | "zh-hans";
+  | "vi"
+  | "zh-hans"
+  | "zh-hant";
 
 export const defaultLocale: LocaleId = "en";
 
@@ -59,21 +63,32 @@ export const allLocales: readonly LocaleId[] = [
   "fr",
   "he",
   "hu",
+  "id",
   "it",
   "ja",
   "ne",
   "nl",
   "pl",
   "pt-br",
+  "pt-pt",
   "ru",
   "sv",
   "tr",
   "uk",
+  "vi",
   "zh-hans",
+  "zh-hant",
 ];
 
 export function getDir(locale: LocaleId): "ltr" | "rtl" {
-  return locale === "ar" || locale === "fa" || locale === "he" ? "rtl" : "ltr";
+  switch (locale) {
+    case "ar":
+    case "fa":
+    case "he":
+      return "rtl";
+    default:
+      return "ltr";
+  }
 }
 
 export const PreferredLocaleContext = createContext<LocaleId>(defaultLocale);
